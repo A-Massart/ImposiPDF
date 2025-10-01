@@ -1,4 +1,4 @@
--------------- 🇫🇷 --------------
+# -------------- 🇫🇷 --------------
 # Outil d'imposition des pages d'un fichier pdf
 ## Version 0.0.0
 
@@ -20,7 +20,7 @@ NOTE : l'application peut mettre du temps à s'ouvrir, c'est normal, cela peut p
 - Fond perdu
 - Différentes tailles de rendu
 
--------------- 🇬🇧 --------------
+# -------------- 🇬🇧 --------------
 # PDF Page Imposition Tool
 ## Version 0.0.0
 
