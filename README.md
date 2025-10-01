@@ -9,7 +9,7 @@ Cet outil permet donc de transformer n'importe quel fichier pdf standard page pa
 
 # Consignes d'utilisation :
 
-1. Télécharger l'application correspondant à votre ordinateur (Windows ou Mac)
+1. Dans l'onglet "Releases", télécharger l'application correspondant à votre ordinateur (Windows, Mac ou Linux)
 2. Exporter votre fichier pdf en 1 seul fichier avec 1 feuille par page
 3. Ouvrir l'application "ImposiPDF" et suivez les instructions
 NOTE : l'application peut mettre du temps à s'ouvrir, c'est normal, cela peut prendre quelques secondes ;)
@@ -31,7 +31,7 @@ This tool allows you to transform any standard PDF file page by page into a "not
 
 # Instructions for use:
 
-1. Download the application that matches your computer (Windows ou Mac)
+1. In the "Releases" section, download the application that matches your computer (Windows, Mac, or Linux)
 2. Export your PDF file as a single file with one sheet per page
 3. Open the "ImposiPDF" application and follow the instructions
 NOTE: The application may take a while to open, this is normal, it can take a few seconds ;)
