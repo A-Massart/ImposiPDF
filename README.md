@@ -23,7 +23,7 @@ Le dossier `ImposiPDF` contient :
 ## Étapes d’installation
 
 1. **Télécharger le dossier `ImposiPDF`** sur votre ordinateur.
-2. **Ouvrir le [terminal](https://e-value.fr/le-terminal-windows-cest-quoi-et-comment-lutiliser/)** (ou PowerShell sur Windows) dans le dossier `ImposiPDF`.
+2. **Ouvrir le [terminal](https://codeur-pro.fr/invite-de-commande-et-terminal/)** (ou PowerShell sur Windows) dans le dossier `ImposiPDF`.
 3. **Se rendre dans le dossier qui contient requirements.txt** avec la commande
 ```bash
 cd /Users/[chemin vers le dossier correspondant]/ImposiPDF
