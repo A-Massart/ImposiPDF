@@ -1,0 +1,3 @@
+([('pdf-imposition',
+   '/Users/alice/Desktop/pdf-imposition/dist/pdf-imposition',
+   'EXECUTABLE')],)

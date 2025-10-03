@@ -1,37 +1,51 @@
-# -------------- 🇫🇷 --------------
-# Outil d'imposition des pages d'un fichier pdf
-## Version 0.0.0
+# ImposiPDF
 
-"En imprimerie, l'imposition est une des étapes de prépresse. Elle consiste à placer sur une grande feuille (la forme) les pages d'un ouvrage afin d'obtenir un cahier lors de son pliage." - Wikipédia
+ImposiPDF est un outil Python pour imposer les pages d’un PDF en format cahier avec traits de coupe.  
+Il permet de transformer un PDF standard en un PDF prêt à être imprimé en livret.
 
-Cet outil permet donc de transformer n'importe quel fichier pdf standard page par page en cahier pour l'impression.
+---
 
+## Contenu du dossier
 
-# Consignes d'utilisation :
+Le dossier `ImposiPDF` contient :  
+- `ImposiPDF.py` → le script principal  
+- `requirements.txt` → liste des modules Python nécessaires  
 
-...
+---
 
+## Prérequis
 
-### En cours de développement pour les versions suivantes :
-- Traits de coupe
-- Fond perdu
-- Différentes tailles de rendu
-- version Linux
+- **Python 3.8 ou supérieur** : [Télécharger Python](https://www.python.org/downloads/)  
+- **Pip** (installé automatiquement avec Python)  
 
-# -------------- 🇬🇧 --------------
-# PDF Page Imposition Tool
-## Version 0.0.0
+---
 
-"Imposition is one of the fundamental steps in the prepress printing process. It consists of the arrangement of the printed product's pages on the printer's sheet, in order to obtain faster printing, simplify binding and reduce paper waste." - Wikipedia
+## Étapes d’installation
 
-This tool allows you to transform any standard PDF file page by page into a "notebook file" for printing.
+1. **Télécharger le dossier `ImposiPDF`** sur votre ordinateur.
+2. **Ouvrir le terminal** (ou PowerShell sur Windows) dans le dossier `ImposiPDF`.
+3. **Installer les modules nécessaires** avec la commande suivante :
 
-# Instructions for use:
+```bash
+pip install -r requirements.txt
+```
 
-...
+## Transformer le script en exécutable (application)
+### Sur Windows
 
-### Currently under development for the following versions:
-- Crop marks
-- Bleed
-- Different rendering sizes
-- Linux version
+1. Double-cliquer sur l'application `ImposiPDF.bat`.
+2. Suivre les instructions à l’écran :
+- Indiquer le chemin du fichier PDF à imposer.
+- Entrer le nom du fichier PDF de sortie (sans extension).
+3. Le PDF imposé sera généré dans le même dossier.
+
+### Sur macOS / Linux
+
+1. Ouvrir un terminal dans le dossier `ImposiPDF`.
+2. Créer une application à partir du script :
+``` bash
+chmod +x ImposiPDF.py
+```
+
+3. Ouvrir `ImposiPDF.app`
+4. Suivre les instructions à l’écran.
