@@ -100,7 +100,7 @@ def impose_booklet(input_pdf, output_pdf, add_crop_marks=True, bleed_mm=5):
     print(f"✅ PDF imposé exporté : {output_pdf}")
 
 # Titre
-print("\n=== ImposiPDF - Outil d'imposition de pages développé par Bidule ===\n"
+print("\n\n\n=== ImposiPDF - Outil d'imposition de pages développé par Alice MASSART ===\n"
       "Ce que tu obtiendras :\n"
       "- fichier pdf cahier avec impsoition des pages\n"
       "- traits de coupes\n")
