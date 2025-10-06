@@ -105,7 +105,7 @@ print("\n\n\n=== ImposiPDF - Outil d'imposition de pages développé par Alice M
       "- fichier pdf cahier avec impsoition des pages\n"
       "- traits de coupes\n")
 # Inputs simplifiés
-input_pdf = input("Chemin vers ton fichier PDF\n(ex: C:/Users/TonNom/Documents/fichier.pdf)\n-> ")
+input_pdf = input("Chemin vers ton fichier PDF\n(ex: /Users/TonNom/Documents/fichier.pdf)\n-> ")
 output_pdf = input("Nom du fichier de sortie (sans extension): ")
 
 # Les traits de coupe sont activés par défaut
