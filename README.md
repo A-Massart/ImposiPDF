@@ -56,10 +56,19 @@ pip install -r requirements.txt
 ### Sur macOS / Linux
 
 1. Ouvrir un terminal dans le dossier `ImposiPDF`.
-2. Créer une application à partir du script :
+2. Rendre le programme éxécutable :
 ``` bash
 chmod +x ImposiPDF.py
 ```
+3. Lancer le programme :
+``` bash
+./ImposiPDF.py
+```
 
-3. Ouvrir `ImposiPDF.app`
 4. Suivre les instructions à l’écran.
+
+### Maintenant que vous avez installé le programme, vous n'aurez plus qu'à écrire cette ligne pour l'utiliser n'importe quand :
+``` bash
+./[chemin vers le dossier correspondant]/ImposiPDF.py
+```
+Conseil : réécrivez la ligne avce le bon chemin et notez là pour vous faire gagner du temps.
