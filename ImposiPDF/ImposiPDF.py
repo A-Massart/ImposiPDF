@@ -2,13 +2,28 @@
 
 from pypdf import PdfReader, PdfWriter, PageObject
 import os
+import platform
 
 def mm_to_pt(mm):
     return mm * 72 / 25.4  # 1 pouce = 25.4 mm, 72 pt = 1 pouce
 
+def get_downloads_folder():
+    """Retourne le chemin du dossier Téléchargements selon le système d'exploitation."""
+    home = os.path.expanduser("~")
+
+    system = platform.system()
+    if system == "Windows":
+        return os.path.join(home, "Downloads")
+    elif system == "Darwin":  # macOS
+        return os.path.join(home, "Downloads")
+    elif system == "Linux":
+        return os.path.join(home, "Téléchargements") if os.path.exists(os.path.join(home, "Téléchargements")) else os.path.join(home, "Downloads")
+    else:
+        return home  # fallback
+
 def impose_booklet(input_pdf, output_pdf, add_crop_marks=True, bleed_mm=5):
     if not os.path.exists(input_pdf):
-        print(f"Erreur : le fichier '{input_pdf}' n'existe pas.")
+        print(f"❌ Erreur : le fichier '{input_pdf}' n'existe pas.")
         return
 
     reader = PdfReader(input_pdf)
@@ -75,7 +90,7 @@ def impose_booklet(input_pdf, output_pdf, add_crop_marks=True, bleed_mm=5):
 
             mark_len = mm * 5
 
-            # coins externes gauche / droite (comme dans ton code original)
+            # coins externes gauche / droite
             x_positions = [bleed, half_width + bleed, A4_WIDTH - bleed]
             y_positions = [bleed, A4_HEIGHT - bleed]
 
@@ -97,16 +112,22 @@ def impose_booklet(input_pdf, output_pdf, add_crop_marks=True, bleed_mm=5):
     with open(output_pdf, 'wb') as f_out:
         writer.write(f_out)
 
-    print(f"✅ PDF imposé exporté : {output_pdf}")
+    print(f"✅ PDF imposé exporté avec succès :\n{output_pdf}")
 
-# Titre
-print("\n\n\n=== ImposiPDF - Outil d'imposition de pages développé par Alice MASSART ===\n"
-      "Ce que tu obtiendras :\n"
-      "- fichier pdf cahier avec impsoition des pages\n"
-      "- traits de coupes\n")
+# --- Programme principal ---
+print("\n=== 📘 ImposiPDF - Outil d'imposition de pages (par Alice Massart) ===\n")
+print("Ce que tu obtiendras :")
+print("- Un fichier PDF imposé pour l'impression en livret")
+print("- Des traits de coupe automatiques\n")
+
 # Inputs simplifiés
-input_pdf = input("Chemin vers ton fichier PDF\n(ex: /Users/TonNom/Documents/fichier.pdf)\n-> ")
-output_pdf = input("Nom du fichier de sortie (sans extension): ")
+input_pdf = input("Chemin vers ton fichier PDF\n(ex: /Users/TonNom/Documents/fichier.pdf)\n-> ").strip()
+output_name = input("Nom du fichier de sortie (sans extension)\n-> ").strip()
 
-# Les traits de coupe sont activés par défaut
-impose_booklet(input_pdf, f"{output_pdf}.pdf", add_crop_marks=True)
+# Dossier Téléchargements
+downloads_dir = get_downloads_folder()
+os.makedirs(downloads_dir, exist_ok=True)
+output_pdf_path = os.path.join(downloads_dir, f"{output_name}.pdf")
+
+# Exécution
+impose_booklet(input_pdf, output_pdf_path, add_crop_marks=True)
