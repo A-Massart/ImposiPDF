@@ -7,10 +7,11 @@ Il permet de transformer un PDF standard en un PDF prêt à être imprimé en li
 
 ## Contenu du dossier
 
-Le dossier `ImposiPDF` contient :  
-- `ImposiPDF.py` → le script principal  
-- `requirements.txt` → liste des modules Python nécessaires  
-
+Le dossier `ImposiPDF` contient :
+- `ImposiPDF.bat` → fichier éxecutable Windows
+- `ImposiPDF.py` → le script principal
+- `logo-imposition.ico` → logo de l'outil
+- `requirements.txt` → liste des modules Python nécessaires
 ---
 
 ## Prérequis
@@ -23,25 +24,7 @@ Le dossier `ImposiPDF` contient :
 ## Étapes d’installation
 
 1. **Télécharger le dossier `ImposiPDF`** sur votre ordinateur.
-2. **Ouvrir le terminal** (ou PowerShell sur Windows) dans le dossier `ImposiPDF`.
-3. **Se rendre dans le dossier** avec la commande
 
-Pour Windows :
-```bash
-dir /Users/[chemin vers le dossier correspondant]/requirements.txt
-```
-
-Pour Mac :
-```bash
-cd /Users/[chemin vers le dossier correspondant]/requirements.txt
-```
-4. **Installer les modules nécessaires** avec la commande suivante :
-
-```bash
-pip install -r requirements.txt
-```
-
-## Transformer le script en exécutable (application)
 ### Sur Windows
 
 1. Double-cliquer sur l'application `ImposiPDF.bat`.
@@ -50,13 +33,30 @@ pip install -r requirements.txt
 - Entrer le nom du fichier PDF de sortie (sans extension).
 3. Le PDF imposé sera généré dans le même dossier.
 
-### Sur macOS / Linux
+### Sur MacOS / Linux
 
-1. Ouvrir un terminal dans le dossier `ImposiPDF`.
-2. Créer une application à partir du script :
-``` bash
-chmod +x ImposiPDF.py
+1. **Ouvrir le terminal**
+2. **Se rendre dans le dossier `ImposiPDF`** avec la commande (le dossier dans lequel se trouve le fichier `requirements.txt`)
+
+```bash
+cd /Users/[chemin vers le dossier correspondant]/ImposiPDF
+```
+3. **Installer les modules nécessaires** avec la commande suivante :
+
+```bash
+pip install -r requirements.txt
 ```
 
-3. Ouvrir `ImposiPDF.app`
-4. Suivre les instructions à l’écran.
+4. **Éxécuter le script :**
+
+``` bash
+chmod +x ImposiPDF.py
+./Users/[chemin vers le dossier correspondant]/ImposiPDF.py
+```
+
+5. Vous pouvez maintenant déplacer le dossier `ImposiPDF` (pas `ImposiPDF-main`) à l'endroit qui vous arrange.
+
+CONSEIL : pour les utilisation futures, seule cette dernière ligne de commande est nécessaire. Notez la pour un lancement plus rapide de l'outil, par exemple :
+``` bash
+./Users/Desktop/ImposiPDF/ImposiPDF.py
+```
