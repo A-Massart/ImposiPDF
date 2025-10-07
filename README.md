@@ -68,8 +68,13 @@ chmod +x ImposiPDF.py
 
 4. Suivre les instructions à l’écran.
 
+5. Vous pouvez maintenant déplacer le dossier `ImposiPDF` (pas `ImposiPDF-main`) à l'endroit qui vous arrange.
+
 ### Maintenant que vous avez installé le programme, vous n'aurez plus qu'à écrire cette ligne pour l'utiliser n'importe quand :
 ``` bash
 ./[chemin vers le dossier correspondant]/ImposiPDF.py
 ```
-Conseil : réécrivez la ligne avce le bon chemin et notez là pour vous faire gagner du temps.
+Conseil : réécrivez la ligne avec le bon chemin et notez la pour vous faire gagner du temps. par exemple :
+``` bash
+./Users/Desktop/ImposiPDF/ImposiPDF.py
+```
