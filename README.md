@@ -16,8 +16,17 @@ Le dossier `ImposiPDF` contient :
 
 ## Prérequis
 
-- **Python 3.8 ou supérieur** : [Télécharger Python](https://www.python.org/downloads/)  
-- **Pip** (installé automatiquement avec Python)  
+- **Dernière version de Python** : [Télécharger Python](https://www.python.org/downloads/)  
+- **Pip** (installé automatiquement avec Python)
+
+Si python est déjà installé sur votre ordinateur, vérifiez les versions de python et pip.
+
+Si vous rencontrez un problème sous Windows lors des étapes suivantes : 
+1. Désinstallez Python
+2. Réinstallez le manuellement en personnalisant l'installation : assurez-vous ainsi que sont activés :
+- "pip"
+- "Add python to environnemental variables"
+3. Finaliser l'installation.
 
 ---
 
@@ -51,12 +60,16 @@ pip install -r requirements.txt
 
 ``` bash
 chmod +x ImposiPDF.py
-./Users/[chemin vers le dossier correspondant]/ImposiPDF.py
 ```
-
-5. Vous pouvez maintenant déplacer le dossier `ImposiPDF` (pas `ImposiPDF-main`) à l'endroit qui vous arrange.
-
-CONSEIL : pour les utilisation futures, seule cette dernière ligne de commande est nécessaire. Notez la pour un lancement plus rapide de l'outil, par exemple :
+3. Lancer le programme :
 ``` bash
-./Users/Desktop/ImposiPDF/ImposiPDF.py
+./ImposiPDF.py
 ```
+
+4. Suivre les instructions à l’écran.
+
+### Maintenant que vous avez installé le programme, vous n'aurez plus qu'à écrire cette ligne pour l'utiliser n'importe quand :
+``` bash
+./[chemin vers le dossier correspondant]/ImposiPDF.py
+```
+Conseil : réécrivez la ligne avce le bon chemin et notez là pour vous faire gagner du temps.
