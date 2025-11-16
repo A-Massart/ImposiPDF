@@ -75,8 +75,8 @@ Si vous voulez utiliser **ImposiPDF** sans ouvrir le Terminal, vous pouvez crée
 
    - Pour ajouter une icône, suivre les instructions suivantes :
 
-![Ouvrir les informations](readme-instructions_ouvrir-les-informations.png)
-[Ajouter l'icône](readme-instructions_ajout-icone.mp4)
+<img src="readme-instructions_ouvrir-les-informations.png" alt="Ouvrir les informations" height="300px" />  <img src="readme-instructions_ajout-icone.gif" alt="Ajouter l'icône" height="300px" />
+
 
 5. **Tester**
    - Double-cliquez sur l’icône ImposiPDF.app
