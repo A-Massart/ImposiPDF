@@ -34,7 +34,7 @@ Si vous rencontrez un problème sous Windows lors des étapes suivantes :
 
 1. **Télécharger le dossier `ImposiPDF`** sur votre ordinateur.
 
-### Sur Windows
+### **Sur Windows**
 
 1. Double-cliquer sur l'application `ImposiPDF.bat`.
 2. Suivre les instructions à l’écran :
@@ -42,7 +42,46 @@ Si vous rencontrez un problème sous Windows lors des étapes suivantes :
 - Entrer le nom du fichier PDF de sortie (sans extension).
 3. Le PDF imposé sera généré dans le même dossier.
 
-### Sur MacOS / Linux
+### **Sur MacOS**
+
+Si vous voulez utiliser **ImposiPDF** sans ouvrir le Terminal, vous pouvez créer une **application Automator** qui lance le script en un clic.
+
+1. **Ouvrir Automator**  
+   - Ouvrez Spotlight (`Cmd + Espace`)  
+   - Tapez `Automator` et ouvrez le logiciel  
+   - Une fois le logiciel lancé, créer un **Nouveau Document**, choisissez le type **Application**, puis cliquez sur **Choisir**
+
+2. **Ajouter un script**  
+   - Dans la colonne de gauche : **Bibliothèque → Utilitaires → Exécuter un script AppleScript**  
+   - Faites glisser cette action dans la zone principale
+
+3. **Coller le code suivant dans l'espace éditable**  
+   Remplacez le chemin par le chemin exact de votre fichier `ImposiPDF.py` :
+
+   ```applescript
+   on run {input, parameters}
+       tell application "Terminal"
+           activate
+           do script "python3 '/Chemin/vers/ImposiPDF.py'"
+       end tell
+       return input
+   end run
+   ```
+
+4. **Enregistrer l’application**
+   - Menu `Fichier` → Enregistrer
+   - Nom : `ImposiPDF.app`
+   - Emplacement : `Bureau` ou dossier `Applications`
+
+   - Pour ajouter une icône, suivre les instructions suivantes :
+
+<img src="readme-instructions_ouvrir-les-informations.png" alt="Ouvrir les informations" height="300px" />  <video controls height="300px"><source src="readme-instructions_ajout-icone.mp4" type="video/mp4" />Votre navigateur ne supporte pas la vidéo.</video>
+
+5. **Tester**
+   - Double-cliquez sur l’icône ImposiPDF.app
+   - Le Terminal s’ouvre et le script démarre automatiquement
+
+### **Sur Linux**
 
 1. **Ouvrir le terminal**
 2. **Se rendre dans le dossier `ImposiPDF`** avec la commande (le dossier dans lequel se trouve le fichier `requirements.txt`)
