@@ -75,7 +75,8 @@ Si vous voulez utiliser **ImposiPDF** sans ouvrir le Terminal, vous pouvez crée
 
    - Pour ajouter une icône, suivre les instructions suivantes :
 
-<img src="readme-instructions_ouvrir-les-informations.png" alt="Ouvrir les informations" height="300px" />  <video controls height="300px"><source src="readme-instructions_ajout-icone.mp4" type="video/mp4" />Votre navigateur ne supporte pas la vidéo.</video>
+<img src="readme-instructions_ouvrir-les-informations.png" alt="Ouvrir les informations" height="300px" />
+<video controls height="300px"><source src="readme-instructions_ajout-icone.mp4" type="video/mp4" />Votre navigateur ne supporte pas la vidéo.</video>
 
 5. **Tester**
    - Double-cliquez sur l’icône ImposiPDF.app
