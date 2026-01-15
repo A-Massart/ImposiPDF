@@ -54,20 +54,15 @@ Si vous voulez utiliser **ImposiPDF** sans ouvrir le Terminal, vous pouvez crée
    - Une fois le logiciel lancé, créer un **Nouveau Document**, choisissez le type **Application**, puis cliquez sur **Choisir**
 
 2. **Ajouter un script**  
-   - Dans la colonne de gauche : **Bibliothèque → Utilitaires → Exécuter un script AppleScript**  
+   - Dans la colonne de gauche : **Bibliothèque → Utilitaires → Exécuter un script Shell**  
    - Faites glisser cette action dans la zone principale
 
 3. **Coller le code suivant dans l'espace éditable**  
    Remplacez le chemin par le chemin exact de votre fichier `ImposiPDF.py` :
 
    ```applescript
-   on run {input, parameters}
-       tell application "Terminal"
-           activate
-           do script "python3 '/Chemin/vers/ImposiPDF.py'"
-       end tell
-       return input
-   end run
+   #!/bin/bash
+   /usr/local/bin/python3 "/Chemin/vers/ImposiPDF.py"
    ```
 
 4. **Enregistrer l’application**
