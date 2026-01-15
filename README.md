@@ -30,6 +30,8 @@ Si vous rencontrez un problème sous Windows lors des étapes suivantes :
 
 ---
 
+### ⚠️ ATTENTION : Veillez à avoir votre fichier PDF en local sur votre ordinateur et non sur un drive, sinon le programme peut ne pas trouver le fichier et vous faire une erreur. 
+
 ## Étapes d’installation
 
 1. **Télécharger le dossier `ImposiPDF`** sur votre ordinateur.
