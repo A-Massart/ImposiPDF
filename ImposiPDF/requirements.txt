@@ -1,2 +1,5 @@
 pypdf
+Pillow
+PyMuPDF
+customtkinter
 reportlab

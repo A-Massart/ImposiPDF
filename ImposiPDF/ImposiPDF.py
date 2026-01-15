@@ -1,22 +1,27 @@
 #!/usr/bin/env python3
-from pypdf import PdfReader, PdfWriter, PageObject
 import os
 import platform
 import copy
+from tkinter import filedialog, messagebox
+import customtkinter as ctk
+from PIL import Image, ImageTk
+import fitz  # PyMuPDF
+from pypdf import PdfReader, PdfWriter, PageObject
 
 
+# =====================
+#   UTILITAIRES PDF
+# =====================
 def mm_to_pt(mm):
-    """Convertit des millimètres en points PDF."""
-    return mm * 72 / 25.4  # 1 pouce = 25.4 mm, 1 pouce = 72 points
+    return mm * 72 / 25.4
 
 
 def get_downloads_folder():
-    """Retourne le dossier Téléchargements selon le système d’exploitation."""
     home = os.path.expanduser("~")
     system = platform.system()
     if system == "Windows":
         return os.path.join(home, "Downloads")
-    elif system == "Darwin":  # macOS
+    elif system == "Darwin":
         return os.path.join(home, "Downloads")
     elif system == "Linux":
         if os.path.exists(os.path.join(home, "Téléchargements")):
@@ -26,37 +31,28 @@ def get_downloads_folder():
 
 
 def impose_booklet(input_pdf, output_pdf, add_crop_marks=True, bleed_mm=5):
-    """Crée un PDF imposé en livret avec fond perdu et vérification des formats."""
     if not os.path.exists(input_pdf):
-        print(f"❌ Erreur : le fichier '{input_pdf}' n'existe pas.")
-        return
+        raise FileNotFoundError(f"Le fichier '{input_pdf}' n'existe pas.")
 
     reader = PdfReader(input_pdf)
     pages = list(reader.pages)
     total_pages = len(pages)
 
-    # Vérifie que toutes les pages ont la même taille
     first_w = pages[0].mediabox.width
     first_h = pages[0].mediabox.height
+
     for i, page in enumerate(pages[1:], start=2):
-        w = page.mediabox.width
-        h = page.mediabox.height
-        if abs(w - first_w) > 1 or abs(h - first_h) > 1:
-            print(f"❌ Erreur : la page {i} a un format différent ({w:.1f}×{h:.1f} pts).")
-            print("Merci de fournir un PDF dont toutes les pages ont le même format.")
-            return
+        if (abs(page.mediabox.width - first_w) > 1 or
+                abs(page.mediabox.height - first_h) > 1):
+            raise ValueError(f"Page {i} avec dimension différente.")
 
     writer = PdfWriter()
 
-    # Ajout de pages blanches pour obtenir un multiple de 4
     if total_pages % 4 != 0:
-        missing = 4 - (total_pages % 4)
-        for _ in range(missing):
-            blank_page = PageObject.create_blank_page(width=first_w, height=first_h)
-            pages.append(blank_page)
-        total_pages += missing
+        for _ in range(4 - total_pages % 4):
+            pages.append(PageObject.create_blank_page(width=first_w, height=first_h))
+        total_pages = len(pages)
 
-    # Calcul de l'ordre d'imposition (livret)
     imposed_order = []
     for i in range(total_pages // 2):
         if i % 2 == 0:
@@ -64,47 +60,32 @@ def impose_booklet(input_pdf, output_pdf, add_crop_marks=True, bleed_mm=5):
         else:
             imposed_order.append((i, total_pages - i - 1))
 
-    # Dimensions finales
     bleed = mm_to_pt(bleed_mm)
-    page_width = first_w
-    page_height = first_h
-
-    imposed_width = page_width * 2 + 2 * bleed
-    imposed_height = page_height + 2 * bleed - mm_to_pt(3)
+    imposed_width = first_w * 2 + 2 * bleed
+    imposed_height = first_h + 2 * bleed - mm_to_pt(3)
     half_width = (imposed_width - 2 * bleed) / 2
-    half_height = page_height
-    offset_x = bleed
-    offset_y = bleed
+    half_height = first_h
 
-    # Traitement des pages
     for left_idx, right_idx in imposed_order:
         new_page = PageObject.create_blank_page(width=imposed_width, height=imposed_height)
 
-        # --- Page gauche ---
+        # LEFT
         left_page = copy.deepcopy(pages[left_idx])
-        scale_x = half_width / left_page.mediabox.width
-        scale_y = half_height / left_page.mediabox.height
-        scale = min(scale_x, scale_y)
+        scale = min(half_width / left_page.mediabox.width, half_height / left_page.mediabox.height)
         left_page.scale_by(scale)
         left_copy = PageObject.create_blank_page(width=half_width, height=half_height)
         left_copy.merge_page(left_page)
-        tx = offset_x
-        ty = bleed - mm_to_pt(3)
-        new_page.merge_translated_page(left_copy, tx=tx, ty=ty)
+        new_page.merge_translated_page(left_copy, bleed, bleed - mm_to_pt(3))
 
-        # --- Page droite ---
+        # RIGHT
         right_page = copy.deepcopy(pages[right_idx])
-        scale_x = half_width / right_page.mediabox.width
-        scale_y = half_height / right_page.mediabox.height
-        scale = min(scale_x, scale_y)
+        scale = min(half_width / right_page.mediabox.width, half_height / right_page.mediabox.height)
         right_page.scale_by(scale)
         right_copy = PageObject.create_blank_page(width=half_width, height=half_height)
         right_copy.merge_page(right_page)
-        tx = offset_x + half_width
-        ty = bleed - mm_to_pt(3)
-        new_page.merge_translated_page(right_copy, tx=tx, ty=ty)
+        new_page.merge_translated_page(right_copy, bleed + half_width, bleed - mm_to_pt(3))
 
-        # --- Traits de coupe ---
+        # Crop marks
         if add_crop_marks:
             from reportlab.pdfgen import canvas
             from reportlab.lib.units import mm
@@ -113,7 +94,6 @@ def impose_booklet(input_pdf, output_pdf, add_crop_marks=True, bleed_mm=5):
 
             packet = BytesIO()
             c = canvas.Canvas(packet, pagesize=(imposed_width, imposed_height))
-            c.setStrokeColorRGB(0, 0, 0)
             c.setLineWidth(0.5)
             mark_len = mm * 5
 
@@ -134,25 +114,119 @@ def impose_booklet(input_pdf, output_pdf, add_crop_marks=True, bleed_mm=5):
 
         writer.add_page(new_page)
 
-    # Écriture du fichier final
-    with open(output_pdf, "wb") as f_out:
-        writer.write(f_out)
-
-    print(f"✅ PDF imposé exporté avec succès :\n{output_pdf}")
+    with open(output_pdf, "wb") as f:
+        writer.write(f)
 
 
-# === Interface console ===
-print("\n\n\n=== 📘 ImposiPDF - Outil d'imposition de pages (par Alice Massart) ===\n")
-print("Ce que tu obtiendras :")
-print("- Un fichier PDF prêt pour impression en livret")
-print("- Format automatiquement adapté (A4, A5, etc.)")
-print("- Des traits de coupe automatiques\n")
+# =====================
+#   INTERFACE MODERNE
+# =====================
 
-input_pdf = input("Chemin vers ton fichier PDF (ex: C:\\Users\\TonNom\\Documents\\fichier.pdf)\n-> ").strip()
-output_name = input("Nom du fichier de sortie (sans extension)\n-> ").strip()
+ctk.set_appearance_mode("dark")
+ctk.set_default_color_theme("dark-blue")
 
-downloads_dir = get_downloads_folder()
-os.makedirs(downloads_dir, exist_ok=True)
-output_pdf_path = os.path.join(downloads_dir, f"{output_name}.pdf")
+root = ctk.CTk()
+root.title("ImposiPDF")
+root.geometry("850x500")
+root.resizable(False, False)
 
-impose_booklet(input_pdf, output_pdf_path, add_crop_marks=True)
+pdf_var = ctk.StringVar()
+output_var = ctk.StringVar()
+bleed_var = ctk.StringVar(value="5")
+crop_var = ctk.BooleanVar(value=True)
+
+preview_image = None
+preview_label = None
+
+# ---------- RESET INTERFACE ----------
+def reset_interface():
+    pdf_var.set("")         # Réinitialise le chemin PDF
+    output_var.set("")      # Réinitialise le nom du fichier de sortie
+    bleed_var.set("5")      # Remet le fond perdu par défaut
+    crop_var.set(True)      # Remet les traits de coupe cochés
+    preview_label.configure(image="", text="Aucun PDF sélectionné")  # Reset miniature
+
+# ---------- MINIATURE PDF via PyMuPDF ----------
+def load_preview(pdf_path):
+    global preview_image, preview_label
+    if not os.path.exists(pdf_path):
+        return
+    try:
+        doc = fitz.open(pdf_path)
+        page = doc[0]  # première page
+        zoom = 2  # DPI x2 pour meilleure qualité
+        mat = fitz.Matrix(zoom, zoom)
+        pix = page.get_pixmap(matrix=mat)
+        img = Image.frombytes("RGB", [pix.width, pix.height], pix.samples)
+        img.thumbnail((300, 400))
+        preview_image = ImageTk.PhotoImage(img)
+        preview_label.configure(image=preview_image, text="")
+        doc.close()
+    except Exception as e:
+        preview_label.configure(text=f"Impossible de charger la miniature\n{e}")
+
+
+# ---------- CHOIX DU FICHIER ----------
+def choose_file():
+    filename = filedialog.askopenfilename(
+        title="Choisir un PDF",
+        filetypes=[("PDF", "*.pdf")]
+    )
+    pdf_var.set(filename)
+    if filename:
+        load_preview(filename)
+
+
+# ---------- IMPOSITION ----------
+def run_imposition():
+    try:
+        input_pdf = pdf_var.get()
+        out_name = output_var.get().strip()
+        if not input_pdf:
+            messagebox.showerror("Erreur", "Veuillez sélectionner un PDF.")
+            return
+        if not out_name:
+            messagebox.showerror("Erreur", "Veuillez entrer un nom de fichier de sortie.")
+            return
+        downloads = get_downloads_folder()
+        output_pdf = os.path.join(downloads, out_name + ".pdf")
+        impose_booklet(input_pdf, output_pdf, add_crop_marks=crop_var.get(), bleed_mm=int(bleed_var.get()))
+        messagebox.showinfo("Succès", f"PDF généré dans :\n{output_pdf}")
+        reset_interface()
+    except Exception as e:
+        messagebox.showerror("Erreur", str(e))
+
+
+# =====================
+#   UI LAYOUT
+# =====================
+
+# ---- LEFT SIDEBAR ----
+left = ctk.CTkFrame(root, corner_radius=10, fg_color="#1a1a1a")
+left.pack(side="left", fill="y", padx=15, pady=15)
+
+ctk.CTkLabel(left, text="PARAMÈTRES", font=("Arial", 20, "bold")).pack(pady=20)
+ctk.CTkLabel(left, text="PDF source :").pack(anchor="w", padx=20)
+ctk.CTkEntry(left, textvariable=pdf_var, width=240).pack(padx=20, pady=5)
+ctk.CTkButton(left, text="Parcourir", command=choose_file).pack(pady=5)
+
+ctk.CTkLabel(left, text="Nom du PDF exporté :").pack(anchor="w", padx=20, pady=(20, 0))
+ctk.CTkEntry(left, textvariable=output_var, width=240).pack(padx=20, pady=5)
+
+ctk.CTkCheckBox(left, text="Ajouter les traits de coupe", variable=crop_var).pack(pady=15)
+
+ctk.CTkLabel(left, text="Fond perdu (mm) :").pack(anchor="w", padx=20)
+ctk.CTkEntry(left, textvariable=bleed_var, width=80).pack(padx=20, pady=5)
+
+ctk.CTkButton(left, text="Imposer et exporter", command=run_imposition, height=40).pack(pady=30)
+
+
+# ---- RIGHT PREVIEW ----
+right = ctk.CTkFrame(root, corner_radius=10, fg_color="#0f0f0f")
+right.pack(side="right", fill="both", expand=True, padx=15, pady=15)
+
+ctk.CTkLabel(right, text="APERÇU PDF", font=("Arial", 20, "bold")).pack(pady=10)
+preview_label = ctk.CTkLabel(right, text="Aucun PDF sélectionné", font=("Arial", 16))
+preview_label.pack(pady=20)
+
+root.mainloop()
