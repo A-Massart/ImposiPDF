@@ -5,6 +5,10 @@ Il permet de transformer un PDF standard en un PDF prêt à être imprimé en li
 
 ---
 
+Changements en cours
+
+---
+
 ## Contenu du dossier
 
 Le dossier `ImposiPDF` contient :
