@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>IMPOSIPDF__Mac</string>
+	<key>CFBundleExecutable</key>
+	<string>IMPOSIPDF__Mac</string>
+	<key>CFBundleIconFile</key>
+	<string>generated-a195c25ab6a1d54f5cc13b0b141d025ab0713bca0dccbd458a04080a57e5b142.icns</string>
+	<key>CFBundleIdentifier</key>
+	<string>IMPOSIPDF__Mac</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>IMPOSIPDF__Mac</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>0.0.0</string>
+	<key>NSHighResolutionCapable</key>
+	<true/>
+</dict>
+</plist>
