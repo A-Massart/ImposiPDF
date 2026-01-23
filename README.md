@@ -3,8 +3,15 @@
 ImposiPDF est un outil Python pour imposer les pages d’un PDF en format cahier avec traits de coupe.  
 Il permet de transformer un PDF standard en un PDF prêt à être imprimé en livret.
 
----
+---  
+  
+<p align="center" style="padding-top:15px;">
+  <a href="https://ko-fi.com/alicemassart">
+    <img src="https://img.shields.io/badge/Support%20me-❤️-ff69b4" alt="Support me">
+  </a>
+</p>
 
+---
 ## Contenu du dossier
 
 Le dossier `ImposiPDF` contient :
