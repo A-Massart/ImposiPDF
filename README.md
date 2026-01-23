@@ -6,9 +6,7 @@ Il permet de transformer un PDF standard en un PDF prêt à être imprimé en li
 ---  
   
 <p align="center" style="padding-top:15px;">
-  <a href="https://ko-fi.com/alicemassart">
-    <img src="https://img.shields.io/badge/Support%20me-❤️-ff69b4" alt="Support me">
-  </a>
+  <a href='https://ko-fi.com/P5P01STUPA' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://storage.ko-fi.com/cdn/kofi6.png?v=6' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 </p>
 
 ---
